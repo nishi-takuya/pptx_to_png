@@ -29,37 +29,44 @@ The `pptx_to_png` tool is a command-line interface (CLI) program. Below are the 
 Convert all slides in a `.pptx` file to PNG images with a default width of 1280px (or resize as specified):
 
 ```sh
+python pptx_to_png.py path/to/your/presentation.pptx
+```
+
+Alternatively, you can use the `--source` or `-s` option to specify the file explicitly:
+
+```sh
 python pptx_to_png.py --source path/to/your/presentation.pptx
+python pptx_to_png.py -s path/to/your/presentation.pptx
 ```
 
 ### Options
 
 | Option          | Short | Description                                                                                    |
 | --------------- | ----- | ---------------------------------------------------------------------------------------------- |
-| `--source`      | `--s` | Path to the source PowerPoint (.pptx) file. **(Required)**                                     |
-| `--destination` | `--d` | Directory where the PNG files will be saved. Defaults to the same folder as the source file.   |
-| `--width`       | `--w` | Width of the output PNG images. Aspect ratio is preserved unless `--height` is also specified. |
-| `--height`      | `--h` | Height of the output PNG images. Aspect ratio is preserved unless `--width` is also specified. |
-| `--log`         | `--l` | Enables logging. Displays messages for each file processed and output file name.               |
+| `--source`      | `-s` | **(Required)** Path to the source PowerPoint (.pptx) file.                                     |
+| `--destination` | `-d` | Directory where the PNG files will be saved. Defaults to the same folder as the source file.   |
+| `--width`       | `-w` | Width of the output PNG images. Aspect ratio is preserved unless `--height` is also specified. |
+| `--height`      | `-ht` | Height of the output PNG images. Aspect ratio is preserved unless `--width` is also specified. |
+| `--log`         | `-l` | Enables logging. Displays messages for each file processed and output file name.               |
 
 ### Examples
 
 1. **Convert to PNGs with Default Width (1280px):**
 
    ```sh
-   python pptx_to_png.py --s path/to/your/presentation.pptx
+   python pptx_to_png.py -s path/to/your/presentation.pptx
    ```
 
 2. **Convert with Specified Width and Height:**
 
    ```sh
-   python pptx_to_png.py --s path/to/your/presentation.pptx --w 1024 --h 768
+   python pptx_to_png.py -s path/to/your/presentation.pptx -w 1024 -ht 768
    ```
 
 3. **Convert with Logging Enabled:**
 
    ```sh
-   python pptx_to_png.py --s path/to/your/presentation.pptx --l
+   python pptx_to_png.py -s path/to/your/presentation.pptx --l
    ```
 
 ### Output Format
