@@ -16,6 +16,7 @@ def export_slides_as_png(source: str, destination: str, width: int = None, heigh
     """
     powerpoint = comtypes.client.CreateObject("Powerpoint.Application")
     powerpoint.Visible = 1
+    powerpoint.WindowState = 2  # 2 is the constant for ppWindowMinimized
     presentation = powerpoint.Presentations.Open(source)
 
     # Export each slide
@@ -70,10 +71,8 @@ def main() -> None:
     height = args.height
     log = args.log
 
-    # Ensure the destination directory exists
     Path(destination).mkdir(parents=True, exist_ok=True)
 
-    # Export slides directly to PNG
     export_slides_as_png(source, destination, width, height, log)
 
 if __name__ == "__main__":
