@@ -1,23 +1,21 @@
-# pptx_to_png.py
 
 ## 📖 Table of Contents
 
-- [pptx\_to\_png.py](#pptx_to_pngpy)
-  - [📖 Table of Contents](#-table-of-contents)
-  - [📝 Description](#-description)
-  - [✨ Features](#-features)
-  - [⚙️ Installation Instructions](#️-installation-instructions)
-  - [🚀 Usage Guide](#-usage-guide)
-    - [Command-line Options and Parameters](#command-line-options-and-parameters)
-  - [📁 Examples](#-examples)
-  - [🔬 How It Works](#-how-it-works)
-  - [✅ Prerequisites](#-prerequisites)
-  - [📜 License](#-license)
-  - [📬 Contact Information](#-contact-information)
+- [📖 Table of Contents](#-table-of-contents)
+- [📝 Description](#-description)
+- [✨ Features](#-features)
+- [⚙️ Installation Instructions](#️-installation-instructions)
+- [🚀 Usage Guide](#-usage-guide)
+  - [Command-line Options and Parameters](#command-line-options-and-parameters)
+- [📁 Examples](#-examples)
+- [🔬 How It Works](#-how-it-works)
+- [✅ Prerequisites](#-prerequisites)
+- [📜 License](#-license)
+- [📬 Contact Information](#-contact-information)
 
 ## 📝 Description
 
-A command-line tool designed to convert slides from a PowerPoint (.pptx) file into individual PNG images. The tool exports each slide while maintaining its aspect ratio, with options to set a custom width or height. Logging is available to track the output of generated PNG files.
+A command-line tool designed to convert slides from a PowerPoint (.pptx) file into individual PNG images. The tool exports each slide while maintaining its aspect ratio, with options to set a custom width or height. It includes a timestamp-checking mechanism that prevents unnecessary re-exports if the existing PNG files are up-to-date.
 
 ## ✨ Features
 
@@ -26,6 +24,10 @@ A command-line tool designed to convert slides from a PowerPoint (.pptx) file in
 - Option to specify output width and/or height.
 - Saves PNG images in a user-defined directory.
 - Command-line interface with detailed logging support.
+- Checks if a PNG file for each slide already exists, and compares the timestamp of the existing PNG file with the last modified timestamp of the source PPTX.
+  - If the source PPTX is newer, it regenerates the PNG.
+  - If the PNG is missing or does not contain a timestamp, it regenerates the PNG.
+  - If the PNG is up-to-date, the export is skipped.
 
 ## ⚙️ Installation Instructions
 
@@ -88,14 +90,19 @@ python pptx_to_png.py -s <path_to_pptx> -d <destination_folder> -w <width> -ht <
 1. The tool uses PowerPoint's COM interface to open the source `.pptx` file.
 2. Each slide's dimensions are determined to calculate the aspect ratio.
 3. The user-specified width or height (or both) is applied, and the slides are exported as PNGs while maintaining the aspect ratio.
-4. PNG files are saved in the specified destination folder, and logging is enabled if requested.
+4. For each slide's PNG, the tool checks if a PNG file with a timestamp metadata entry exists:
+   - If the PNG is missing or the timestamp is outdated, the slide is re-exported as PNG.
+   - If the timestamp in the PNG matches or is newer than the source PPTX, the export is skipped.
+5. PNG files are saved in the specified destination folder, and logging is enabled if requested.
 
 ## ✅ Prerequisites
 
 - **Python 3.9 or higher**
 - **Required Python package(s)**:
   - `comtypes==1.4.8` (For interacting with PowerPoint's COM interface)
+  - `Pillow==9.0.0` or higher (For reading and writing PNG metadata)
 - **Microsoft PowerPoint must be installed** on the machine running the script.
+- **File System Permissions**: Ensure read/write permissions on the PNG files and directories, especially for adding metadata.
 
 ## 📜 License
 
